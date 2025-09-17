@@ -1,25 +1,32 @@
-﻿using System.Collections;
+﻿/*
+  David Huerta
+  Challenge 2
+  removes dogs and balls that go out of bounds
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyOutOfBoundsX : MonoBehaviour
 {
-    private float leftLimit = 30;
-    private float bottomLimit = -5;
+    public float leftLimit = -30f;
+    public float bottomLimit = -5f;
 
-    // Update is called once per frame
     void Update()
     {
-        // Destroy dogs if x position less than left limit
-        if (transform.position.x > leftLimit)
-        {
-            Destroy(gameObject);
-        } 
-        // Destroy balls if y position is less than bottomLimit
-        else if (transform.position.z < bottomLimit)
+        // destroy dog if it goes too far left
+        if (gameObject.CompareTag("Dog") && transform.position.x < leftLimit)
         {
             Destroy(gameObject);
         }
 
+        // destroy ball if it goes below the screen
+        if (gameObject.CompareTag("Ball") && transform.position.y < bottomLimit)
+        {
+            // tell game manager we lost health
+            GameManagerX.Instance.LoseHealth(1);
+
+            Destroy(gameObject);
+        }
     }
 }

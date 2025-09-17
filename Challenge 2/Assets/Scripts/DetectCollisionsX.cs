@@ -1,12 +1,23 @@
-﻿using System.Collections;
+﻿/*
+  David Huerta
+  Challenge 2
+ destroys ball when dog touches it
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DetectCollisionsX : MonoBehaviour
 {
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        if (other.CompareTag("Ball"))
+        {
+            
+            GameManagerX.Instance.AddScore(1);
+
+            
+            Destroy(other.gameObject);
+        }
     }
 }
